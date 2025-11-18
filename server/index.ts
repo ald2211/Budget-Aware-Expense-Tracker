@@ -6,6 +6,7 @@ import path from "path";
 import { config } from "dotenv";
 import cookieParser from "cookie-parser";
 import connectDB from "./config/dbConnection";
+import authRoute from "./routes/auth.route";
 
 config({ path: path.resolve(__dirname, "../.env") });
 const app = express();
@@ -21,9 +22,7 @@ app.use(express.urlencoded({ extended: true }));
 connectDB();
 
 //routes
-app.use("/", (req: Request, res: Response) => {
-  res.json({ message: "hi" });
-});
+app.use("/api/v1/auth", authRoute);
 
 const _dirname = path.resolve();
 app.use(express.static(path.join(_dirname, "frontEnd", "dist")));
