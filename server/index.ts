@@ -12,7 +12,7 @@ config({ path: path.resolve(__dirname, "../.env") });
 const app = express();
 app.use(morgan("dev"));
 app.use(helmet());
-app.use(cors({ origin: "*" }));
+app.use(cors({ credentials: true, origin: process.env.FRONTEND_URL }));
 app.use(cookieParser());
 
 app.use(express.json());

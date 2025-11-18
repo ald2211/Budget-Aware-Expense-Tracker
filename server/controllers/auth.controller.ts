@@ -13,6 +13,7 @@ export const register = async (
 ) => {
   try {
     const { email, password } = req.body;
+    console.log("email:", email);
     //joi validation
     const { error } = authValidationSchema.validate(
       {
@@ -49,10 +50,10 @@ export const register = async (
           next(errorHandler(500, "Sign in Failed please try again"));
           return;
         }
-        const { password, ...rest } = user.toObject();
+        const { email } = user.toObject();
         res
           .status(200)
-          .json({ success: true, message: "welcome", userData: rest, token });
+          .json({ success: true, user: email, token });
       }
     );
   } catch (error: any) {
@@ -98,10 +99,10 @@ export const login = async (
           console.log("login err:", err);
           return next(errorHandler(400, "login failed"));
         }
-        const { password, ...rest } = user.toObject();
+        const { email } = user.toObject();
         res
           .status(200)
-          .json({ success: true, message: "welcome", userData: rest, token });
+          .json({ success: true, user: email, token });
       }
     );
   } catch (error) {
