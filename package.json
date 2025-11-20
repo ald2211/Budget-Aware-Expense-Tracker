@@ -7,6 +7,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "nodemon server/index.ts",
+    "postinstall": "cd frontEnd && npm install",
     "build": "npm i && cd frontEnd && npm run build && cd .. && npx tsc",
     "start": "node build/index.js"
   },
