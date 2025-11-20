@@ -6,12 +6,16 @@ import path from "path";
 import { config } from "dotenv";
 import cookieParser from "cookie-parser";
 import connectDB from "./config/dbConnection";
+import categoriesRoute from "./routes/categories.route";
+import budgetsRoute from "./routes/budgets.route";
+import expensesRoute from "./routes/expenses.route";
+import authRoute from "./routes/auth.route";
 
 config({ path: path.resolve(__dirname, "../.env") });
 const app = express();
 app.use(morgan("dev"));
 app.use(helmet());
-app.use(cors({ origin: "*" }));
+app.use(cors({ credentials: true, origin: process.env.FRONTEND_URL }));
 app.use(cookieParser());
 
 app.use(express.json());
@@ -21,9 +25,10 @@ app.use(express.urlencoded({ extended: true }));
 connectDB();
 
 //routes
-app.use("/", (req: Request, res: Response) => {
-  res.json({ message: "hi" });
-});
+app.use("/api/v1/auth", authRoute);
+app.use("/api/v1/categories", categoriesRoute);
+app.use("/api/v1/budgets", budgetsRoute);
+app.use("/api/v1/expenses", expensesRoute);
 
 const _dirname = path.resolve();
 app.use(express.static(path.join(_dirname, "frontEnd", "dist")));
