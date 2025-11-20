@@ -1,5 +1,5 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { createExpense, getDashboardData, } from "../apis/expensesApi";
+import { createExpense, getDashboardData } from "../apis/expensesApi";
 import type { ExpenseInput } from "../types";
 
 export const useDashboardData = (month: string) => {

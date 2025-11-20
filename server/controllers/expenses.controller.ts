@@ -64,7 +64,7 @@ export const createExpense = async (
 
     // Fetch budget
     const budget = await Budget.findOne({
-       userId,
+      userId,
       categoryId,
       month,
     });
@@ -80,7 +80,7 @@ export const createExpense = async (
     }
 
     // Return ONLY the status
-    return res.status(201).json({ success:true,status });
+    return res.status(201).json({ success: true, status });
   } catch (err) {
     console.log("create expense error:", err);
     next(errorHandler(500, "internal server error"));
@@ -111,7 +111,7 @@ export const getDashboardData = async (req: Request, res: Response) => {
         {
           $match: {
             userId: new mongoose.Types.ObjectId(String(userId)),
-            categoryId:new mongoose.Types.ObjectId(String(category._id)) ,
+            categoryId: new mongoose.Types.ObjectId(String(category._id)),
             date: { $gte: start, $lt: end },
           },
         },
@@ -122,7 +122,7 @@ export const getDashboardData = async (req: Request, res: Response) => {
 
       // 3️⃣ Get budget for each category
       const budget = await Budget.findOne({
-         userId,
+        userId,
         categoryId: category._id,
         month,
       });

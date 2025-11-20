@@ -12,9 +12,9 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   );
 
   const login = (data: LoginResponse) => {
-     if (!data.token) {
-    throw new Error("Token missing — cannot authenticate user");
-  }
+    if (!data.token) {
+      throw new Error("Token missing — cannot authenticate user");
+    }
     localStorage.setItem("token", data.token);
     localStorage.setItem("user", JSON.stringify(data.user));
     setToken(data.token);

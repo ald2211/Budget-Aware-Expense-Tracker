@@ -37,9 +37,9 @@ export const categorySchema = Joi.object({
   }),
 
   userId: Joi.string().required().messages({
-    "string.empty":"couldn't get id",
-    "any.required":"couldn't get id"
-  })
+    "string.empty": "couldn't get id",
+    "any.required": "couldn't get id",
+  }),
 });
 
 export const categoryWithIdSchema = categorySchema

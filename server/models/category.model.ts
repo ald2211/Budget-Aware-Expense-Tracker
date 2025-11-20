@@ -1,9 +1,8 @@
 import mongoose, { Schema } from "mongoose";
 import { ICategory } from "../types/model.type";
 
-
 const CategorySchema = new Schema<ICategory>(
-  { 
+  {
     name: { type: String, required: true, unique: true },
     color: { type: String, required: true, unique: true },
     userId: {
@@ -11,7 +10,6 @@ const CategorySchema = new Schema<ICategory>(
       ref: "User",
       required: true,
     },
-    
   },
   { timestamps: true }
 );

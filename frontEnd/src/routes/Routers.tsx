@@ -17,8 +17,6 @@ import { Reports } from "../components/Reports";
 import { SettingsView } from "../components/settings/SettingView";
 import { LayoutRoute } from "../components/layout/LayoutRoute";
 
-
-
 const Routers = createBrowserRouter(
   createRoutesFromElements(
     <>

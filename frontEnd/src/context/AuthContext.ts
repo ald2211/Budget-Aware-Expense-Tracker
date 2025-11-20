@@ -16,5 +16,3 @@ export const AuthContext = createContext<AuthContextType>({
   logout: () => {},
   isAuthenticated: false,
 });
-
-
