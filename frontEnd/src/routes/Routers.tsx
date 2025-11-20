@@ -6,17 +6,23 @@ import {
 
 import NotFound from "../components/NotFound";
 
-import Test from "../components/Test";
-
-import { ProtectedRoute } from "../routes/ProtectedRoute";
+import { ProtectedRoute } from "./ProtectedRoute";
 import { UnProtectedRoute } from "./UnProtectedRoute";
+
 import { LoginPage } from "../pages/LoginPage";
 import { SignupPage } from "../pages/SignUpPage";
+
+import { Dashboard } from "../components/Dashboard";
+import { Reports } from "../components/Reports";
+import { SettingsView } from "../components/settings/SettingView";
+import { LayoutRoute } from "../components/layout/LayoutRoute";
+
+
 
 const Routers = createBrowserRouter(
   createRoutesFromElements(
     <>
-      {/* Public Routes (only for logged-out users) */}
+      {/* Public Routes */}
       <Route
         path="/login"
         element={
@@ -35,15 +41,20 @@ const Routers = createBrowserRouter(
         }
       />
 
-      {/* Protected Routes (only for logged-in users) */}
+      {/* Protected Routes */}
       <Route
-        path="/"
         element={
           <ProtectedRoute>
-            <Test />
+            <LayoutRoute />
           </ProtectedRoute>
         }
-      />
+      >
+        {/* All these pages will use the new layout */}
+        <Route path="/" element={<Dashboard />} />
+        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/report" element={<Reports />} />
+        <Route path="/settings" element={<SettingsView />} />
+      </Route>
 
       {/* 404 */}
       <Route path="*" element={<NotFound />} />

@@ -13,7 +13,7 @@ export const register = async (
 ) => {
   try {
     const { email, password } = req.body;
-    console.log("email:", email);
+
     //joi validation
     const { error } = authValidationSchema.validate(
       {
@@ -38,27 +38,14 @@ export const register = async (
 
     user = new User({ email, password: hashedPassword });
     await user.save();
-
-    const payload = { user: { id: user.id } };
-    jwt.sign(
-      payload,
-      process.env.JWT_SECRET as string,
-      { expiresIn: "24h" },
-      (err, token) => {
-        if (err) {
-          console.log("error at token creation:", err);
-          next(errorHandler(500, "Sign in Failed please try again"));
-          return;
-        }
-        const { email } = user.toObject();
-        res
-          .status(200)
-          .json({ success: true, user: email, token });
-      }
-    );
+    const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET as string, {
+      expiresIn: "24h",
+    });
+    const { email: userEmail } = user.toObject();
+    res.status(200).json({ success: true, user: userEmail, token });
   } catch (error: any) {
     console.log("signup error", error.message);
-    next(error);
+    next(errorHandler(500, "server error"));
   }
 };
 
@@ -89,24 +76,13 @@ export const login = async (
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) return next(errorHandler(400, "Invalid credentials"));
 
-    const payload = { user: { id: user.id } };
-    jwt.sign(
-      payload,
-      process.env.JWT_SECRET as string,
-      { expiresIn: "24h" },
-      (err, token) => {
-        if (err) {
-          console.log("login err:", err);
-          return next(errorHandler(400, "login failed"));
-        }
-        const { email } = user.toObject();
-        res
-          .status(200)
-          .json({ success: true, user: email, token });
-      }
-    );
+    const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET as string, {
+      expiresIn: "24h",
+    });
+    const { email: userEmail } = user.toObject();
+    res.status(200).json({ success: true, user: userEmail, token });
   } catch (error) {
     console.log(error);
-    res.status(500).send("Server error");
+    next(errorHandler(500, "server error"));
   }
 };

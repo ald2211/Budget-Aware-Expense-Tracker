@@ -6,6 +6,10 @@ import path from "path";
 import { config } from "dotenv";
 import cookieParser from "cookie-parser";
 import connectDB from "./config/dbConnection";
+import categoriesRoute from "./routes/categories.route";
+import budgetsRoute from "./routes/budgets.route";
+import expensesRoute from "./routes/expenses.route";
+import reportRoute from "./routes/reports.route";
 import authRoute from "./routes/auth.route";
 
 config({ path: path.resolve(__dirname, "../.env") });
@@ -23,6 +27,10 @@ connectDB();
 
 //routes
 app.use("/api/v1/auth", authRoute);
+app.use("/api/v1/categories", categoriesRoute);
+app.use("/api/v1/budgets", budgetsRoute);
+app.use("/api/v1/expenses", expensesRoute);
+app.use("/api/v1/reports", reportRoute);
 
 const _dirname = path.resolve();
 app.use(express.static(path.join(_dirname, "frontEnd", "dist")));

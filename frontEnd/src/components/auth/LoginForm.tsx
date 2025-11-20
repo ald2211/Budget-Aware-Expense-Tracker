@@ -16,7 +16,7 @@ export const LoginForm = () => {
   const loginMutation = useMutation<LoginResponse, Error, LoginData>({
     mutationFn: loginApi,
     onSuccess: (response) => {
-      login(response); // store token & user in context
+      login(response); // store token & user mail in context
       navigate('/')
     },
     onError: (error) => {

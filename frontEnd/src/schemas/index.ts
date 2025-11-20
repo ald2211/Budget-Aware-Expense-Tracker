@@ -23,3 +23,28 @@ export const signupSchema = authSchema.shape({
     .oneOf([Yup.ref("password")], "Passwords must match")
     .required("Confirm Password is required"),
 });
+
+//category schema
+export const categorySchema = Yup.object({
+  name: Yup.string().trim().required("Name is required"),
+  color: Yup.string().required("Color is required"),
+});
+
+//budget schema
+export const budgetSchema = Yup.object({
+  month: Yup.string().required("Month is required"),
+  categoryId: Yup.string().required("Category is required"),
+  limit: Yup.number()
+    .min(0, "Amount must be positive")
+    .required("Limit is required"),
+});
+
+//expense schema
+export const expenseSchema = Yup.object().shape({
+  categoryId: Yup.string().required("Category is required"),
+  amount: Yup.number()
+    .typeError("Amount must be a number")
+    .positive("Amount must be greater than 0")
+    .required("Amount is required"),
+  date: Yup.string().required("Date is required"),
+});
