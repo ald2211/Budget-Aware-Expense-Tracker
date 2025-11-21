@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { LoginForm } from "../components/auth/LoginForm";
+import login from "../assets/loginPage.jpg";
 
 export const LoginPage = () => {
   return (
@@ -8,6 +9,7 @@ export const LoginPage = () => {
         <div className="relative flex items-end px-4 pb-10 pt-60 sm:pb-16 md:justify-center lg:pb-24 bg-gray-50 sm:px-6 lg:px-8">
           <div className="absolute inset-0">
             <img
+              src={login}
               className="object-cover object-top w-full h-screen"
               alt="login page image"
               loading="lazy"
